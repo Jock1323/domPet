@@ -1,7 +1,27 @@
+import { useRef, useContext } from "react";
+import { AuthContext } from "../../Context/AuthContext";
 import "./login.scss";
 import logoWhite from "../../assets/images/logo-white.png";
 import logoText from "../../assets/images/logo-text-white.png";
+import axios from "axios";
 const Login = () => {
+  const { token, setToken } = useContext(AuthContext);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const handleFormSubmit = (evt) => {
+    evt.preventDefault();
+    axios
+      .post("https://reqres.in/api/login", {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      })
+      .then((res) => {
+        if (res.data) {
+          setToken(res.data);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <>
       <div className="login">
@@ -48,11 +68,12 @@ const Login = () => {
             <p className="login__right-text">
               Sign in by entering information below
             </p>
-            <form className="login__right-form">
+            <form className="login__right-form" onSubmit={handleFormSubmit}>
               <label htmlFor="login-email" className="login__right-label">
                 Email
               </label>
               <input
+                ref={emailRef}
                 type="email"
                 name="email"
                 id="login-email"
@@ -63,6 +84,7 @@ const Login = () => {
                 Password
               </label>
               <input
+                ref={passwordRef}
                 type="password"
                 name="password"
                 id="login-password"
