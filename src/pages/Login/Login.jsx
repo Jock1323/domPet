@@ -9,18 +9,18 @@ const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const handleFormSubmit = (evt) => {
-    evt.preventDefault();
-    axios
-      .post("https://reqres.in/api/login", {
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      })
-      .then((res) => {
-        if (res.data) {
-          setToken(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
+    // evt.preventDefault();
+    // axios
+    //   .post("https://reqres.in/api/login", {
+    //     email: emailRef.current.value,
+    //     password: passwordRef.current.value,
+    //   })
+    //   .then((res) => {
+    //     if (res.data) {
+    //       setToken(res.data);
+    //     }
+    //   })
+    //   .catch((err) => console.log(err));
   };
   return (
     <>
